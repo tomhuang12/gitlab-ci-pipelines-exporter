@@ -15,6 +15,8 @@ FROM busybox:1.36-glibc
 
 WORKDIR /
 
+
+COPY version.txt version.txt
 COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY gitlab-ci-pipelines-exporter /usr/local/bin/
 

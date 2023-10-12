@@ -15,6 +15,7 @@ type Job struct {
 	Status                string
 	ArtifactSize          float64
 	Runner                Runner
+	PipelineID            int
 }
 
 // Runner ..
@@ -49,6 +50,7 @@ func NewJob(gj goGitlab.Job) Job {
 		QueuedDurationSeconds: gj.QueuedDuration,
 		Status:                gj.Status,
 		ArtifactSize:          artifactSize,
+		PipelineID:            gj.Pipeline.ID,
 
 		Runner: Runner{
 			Description: gj.Runner.Description,

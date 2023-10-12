@@ -147,6 +147,8 @@ func (m Metric) Key() MetricKey {
 			m.Labels["ref"],
 			m.Labels["stage"],
 			m.Labels["job_name"],
+			m.Labels["job_id"],
+			m.Labels["pipeline_id"],
 		})
 
 	case MetricKindEnvironmentBehindCommitsCount, MetricKindEnvironmentBehindDurationSeconds, MetricKindEnvironmentDeploymentCount, MetricKindEnvironmentDeploymentDurationSeconds, MetricKindEnvironmentDeploymentJobID, MetricKindEnvironmentDeploymentStatus, MetricKindEnvironmentDeploymentTimestamp, MetricKindEnvironmentInformation:
@@ -168,6 +170,11 @@ func (m Metric) Key() MetricKey {
 	switch m.Kind {
 	case MetricKindJobStatus, MetricKindEnvironmentDeploymentStatus, MetricKindStatus:
 		key += m.Labels["status"]
+	}
+
+	switch m.Kind {
+	case MetricKindCoverage, MetricKindDurationSeconds, MetricKindID, MetricKindQueuedDurationSeconds, MetricKindRunCount, MetricKindStatus, MetricKindTimestamp:
+		key += m.Labels["pipeline_id"]
 	}
 
 	return MetricKey(strconv.Itoa(int(crc32.ChecksumIEEE([]byte(key)))))

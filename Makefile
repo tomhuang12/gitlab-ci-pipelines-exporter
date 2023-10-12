@@ -29,7 +29,7 @@ install: ## Build and install locally the binary (dev purpose)
 
 .PHONY: build
 build: ## Build the binaries using local GOOS
-	go build ./cmd/$(NAME)
+	go build -buildvcs=false ./cmd/$(NAME)
 
 .PHONY: release
 release: ## Build & release the binaries (stable)
@@ -68,7 +68,7 @@ dev-env: ## Build a local development environment using Docker
 		-v $(shell pwd):/go/src/github.com/mvisonneau/$(NAME) \
 		-w /go/src/github.com/mvisonneau/$(NAME) \
 		-p 8080:8080 \
-		golang:1.19 \
+		golang:1.20 \
 		/bin/bash -c 'make setup; make install; bash'
 
 .PHONY: is-git-dirty
